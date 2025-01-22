@@ -26,7 +26,7 @@ struct AboutView: View {
                         .font(.headline)
                         .padding(.bottom, 5)
                     
-                    Text("Filmmaker, photo taker, game developer, woodworker, Game Boy modder, father, husband. Feel free to say hi and let me know if you guys have any issues with this app!")
+                    Text("Hi, I'm esotericsean/esotericmods. I'm a YouTuber and game developer. I love Game Boys, dogs, my wife, and my kids. Feel free to say hi and let me know if you guys have any issues with this app! :)")
                         .font(.body)
                         .foregroundColor(.secondary)
                 }
