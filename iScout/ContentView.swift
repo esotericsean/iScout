@@ -18,6 +18,7 @@ struct ContentView: View {
     @State private var centerLocation: Location?
     @AppStorage("hasSeenSplash") private var hasSeenSplash = false
     @State private var showingSplash = true
+    @State private var showSearchBar = true
     
     var body: some View {
         ZStack {
@@ -57,12 +58,14 @@ struct ContentView: View {
                             , alignment: .bottomLeading
                         )
                         
-                        SearchBar(
-                            searchText: $searchText,
-                            locationStore: locationStore,
-                            region: $locationManager.region
-                        )
-                        .padding()
+                        if showSearchBar {
+                            SearchBar(
+                                searchText: $searchText,
+                                locationStore: locationStore,
+                                region: $locationManager.region
+                            )
+                            .padding()
+                        }
                     }
                     .overlay(
                         Button(action: {
@@ -126,6 +129,9 @@ struct ContentView: View {
                         }
                         centerLocation = nil // Reset after centering
                     }
+                }
+                .onChange(of: selectedTab) { newValue in
+                    showSearchBar = (newValue == 0)
                 }
             }
             

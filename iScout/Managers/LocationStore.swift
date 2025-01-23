@@ -68,12 +68,13 @@ class LocationStore: ObservableObject {
     }
     
     func shareLocation(_ location: Location) -> String {
-        // Create a shareable string with location details
+        // Create a maps URL that will open in Apple Maps
+        let mapsUrl = "https://maps.apple.com/?ll=\(location.latitude),\(location.longitude)"
+        
         return """
-        Location: \(location.title)
-        Description: \(location.description)
-        Coordinates: \(location.latitude), \(location.longitude)
-        Maps URL: https://maps.apple.com/?ll=\(location.latitude),\(location.longitude)
+        Check out this location!
+        \(location.title)
+        \(mapsUrl)
         """
     }
     
