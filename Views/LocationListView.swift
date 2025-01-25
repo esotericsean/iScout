@@ -6,20 +6,43 @@ struct LocationListView: View {
     @Binding var centerLocation: Location?
     
     var body: some View {
-        List {
-            ForEach(locationStore.filteredLocations.sorted { $0.dateAdded > $1.dateAdded }) { location in
-                NavigationLink(destination: LocationDetailView(
-                    locationStore: locationStore,
-                    location: location,
-                    selectedTab: $selectedTab,
-                    centerLocation: $centerLocation
-                )) {
-                    LocationRow(location: location)
+        ScrollView {
+            LazyVStack(spacing: 0) {
+                ForEach(locationStore.filteredLocations.sorted { $0.dateAdded > $1.dateAdded }) { location in
+                    NavigationLink(destination: LocationDetailView(
+                        locationStore: locationStore,
+                        location: location,
+                        selectedTab: $selectedTab,
+                        centerLocation: $centerLocation
+                    )) {
+                        LocationRow(location: location)
+                            .padding(.horizontal)
+                            .padding(.vertical, 8)
+                            .frame(maxWidth: UIScreen.main.bounds.width)
+                    }
+                    Divider()
+                        .padding(.horizontal)
                 }
             }
         }
-        .navigationTitle("Saved Locations")
-        .searchable(text: $locationStore.searchText, prompt: "Search locations...")
+        .navigationTitle("")
+        .navigationBarHidden(true)
+        .padding(.top, safeAreaInsets.top + 20)
+        .padding(.bottom, 90)
+    }
+    
+    private var safeAreaInsets: EdgeInsets {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first
+        else { return EdgeInsets() }
+        
+        let insets = window.safeAreaInsets
+        return EdgeInsets(
+            top: insets.top,
+            leading: insets.left,
+            bottom: insets.bottom,
+            trailing: insets.right
+        )
     }
 }
 
@@ -27,27 +50,31 @@ struct LocationRow: View {
     let location: Location
     
     var body: some View {
-        HStack(spacing: 12) {
-            if let imageData = location.imageData,
-               let uiImage = UIImage(data: imageData) {
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 60, height: 60)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-            } else {
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color.gray.opacity(0.2))
-                    .frame(width: 60, height: 60)
-                    .overlay(
-                        Image(systemName: "photo")
-                            .foregroundColor(.gray)
-                    )
+        HStack(alignment: .top, spacing: 12) {
+            Group {
+                if let imageData = location.imageData,
+                   let uiImage = UIImage(data: imageData) {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 60, height: 60)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                } else {
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.gray.opacity(0.2))
+                        .frame(width: 60, height: 60)
+                        .overlay(
+                            Image(systemName: "photo")
+                                .foregroundColor(.gray)
+                        )
+                }
             }
+            .frame(width: 60, height: 60)
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(location.title)
                     .font(.headline)
+                    .lineLimit(1)
                 Text(location.description)
                     .font(.subheadline)
                     .foregroundColor(.secondary)
@@ -56,8 +83,12 @@ struct LocationRow: View {
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
+            Spacer(minLength: 0)
         }
-        .padding(.vertical, 4)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color(.systemBackground))
     }
 }
 
@@ -71,4 +102,4 @@ struct LocationListView_Previews: PreviewProvider {
             )
         }
     }
-}
+} 

@@ -1,3 +1,8 @@
 NSLocationWhenInUseUsageDescription = "iScout needs your location to show nearby places and save locations you scout."
 NSCameraUsageDescription = "iScout needs camera access to take photos of locations you scout."
-NSPhotoLibraryUsageDescription = "iScout needs photo library access to save photos of locations you scout." 
+NSPhotoLibraryUsageDescription = "iScout needs photo library access to save photos of locations you scout."
+<key>UIApplicationSceneManifest</key>
+<dict>
+    <key>UIApplicationSupportsMultipleScenes</key>
+    <false/>
+</dict> 

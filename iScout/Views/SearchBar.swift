@@ -30,20 +30,36 @@ struct SearchBar: View {
     @Binding var searchText: String
     @ObservedObject var locationStore: LocationStore
     @Binding var region: MKCoordinateRegion
-    @State private var searchResults: [SearchResult] = []
-    @State private var isSearching = false
+    @State private var searchResults: [MKLocalSearchCompletion] = []
+    @State private var showingResults = false
+    
+    private let searchCompleter = MKLocalSearchCompleter()
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
+            // Search TextField
             HStack {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.gray)
-                TextField("Search locations...", text: $searchText)
+                
+                TextField("Search locations", text: $searchText)
+                    .textFieldStyle(PlainTextFieldStyle())
                     .autocapitalization(.none)
+                    .onChange(of: searchText) { newValue in
+                        if !newValue.isEmpty {
+                            searchCompleter.queryFragment = newValue
+                            showingResults = true
+                        } else {
+                            searchResults = []
+                            showingResults = false
+                        }
+                    }
+                
                 if !searchText.isEmpty {
                     Button(action: {
                         searchText = ""
                         searchResults = []
+                        showingResults = false
                     }) {
                         Image(systemName: "xmark.circle.fill")
                             .foregroundColor(.gray)
@@ -51,68 +67,66 @@ struct SearchBar: View {
                 }
             }
             .padding(8)
-            .background(Color(.systemGray6))
-            .cornerRadius(10)
+            .background(Color.white)
+            .cornerRadius(8)
+            .shadow(radius: 4)
             
-            if !searchResults.isEmpty {
-                List(searchResults) { result in
-                    Button(action: {
-                        selectSearchResult(result)
-                    }) {
-                        VStack(alignment: .leading) {
-                            Text(result.title)
-                                .font(.headline)
-                            Text(result.subtitle)
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
+            // Search Results
+            if showingResults && !searchResults.isEmpty {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 0) {
+                        ForEach(searchResults, id: \.self) { result in
+                            Button(action: {
+                                searchLocation(result)
+                            }) {
+                                VStack(alignment: .leading) {
+                                    Text(result.title)
+                                        .foregroundColor(.primary)
+                                    Text(result.subtitle)
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
+                                .padding(.vertical, 8)
+                                .padding(.horizontal)
+                            }
+                            Divider()
                         }
                     }
                 }
-                .listStyle(PlainListStyle())
-                .frame(maxHeight: 300)
-            }
-        }
-        .onChange(of: searchText) { newValue in
-            if !newValue.isEmpty {
-                performSearch(query: newValue)
-            } else {
-                searchResults = []
+                .background(Color.white)
+                .cornerRadius(8)
+                .shadow(radius: 4)
+                .frame(maxHeight: 200)
             }
         }
     }
     
-    private func performSearch(query: String) {
-        // Search saved locations
-        let savedResults = locationStore.locations
-            .filter { $0.matches(searchText: query) }
-            .map { SearchResult(location: $0) }
-        
-        // Search MapKit
-        let searchRequest = MKLocalSearch.Request()
-        searchRequest.naturalLanguageQuery = query
-        searchRequest.region = region
-        
+    private func searchLocation(_ result: MKLocalSearchCompletion) {
+        let searchRequest = MKLocalSearch.Request(completion: result)
         let search = MKLocalSearch(request: searchRequest)
+        
         search.start { response, error in
-            guard let response = response else {
-                searchResults = savedResults
-                return
+            guard let coordinate = response?.mapItems.first?.placemark.coordinate else { return }
+            
+            withAnimation {
+                region = MKCoordinateRegion(
+                    center: coordinate,
+                    span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+                )
             }
             
-            let mapResults = response.mapItems.map { SearchResult(mapItem: $0) }
-            searchResults = savedResults + mapResults
+            searchText = ""
+            searchResults = []
+            showingResults = false
         }
     }
     
-    private func selectSearchResult(_ result: SearchResult) {
-        withAnimation {
-            region = MKCoordinateRegion(
-                center: result.coordinate,
-                span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-            )
-        }
-        searchText = ""
-        searchResults = []
+    init(searchText: Binding<String>, locationStore: LocationStore, region: Binding<MKCoordinateRegion>) {
+        self._searchText = searchText
+        self.locationStore = locationStore
+        self._region = region
+        
+        searchCompleter.resultTypes = .pointOfInterest
     }
 }
 
