@@ -13,7 +13,7 @@ struct CustomTabBar: View {
                 .shadow(color: .black.opacity(0.3), radius: 5, y: -3)
             
             // Tab items
-            HStack(spacing: 120) {  // Large fixed spacing
+            HStack(spacing: 80) {
                 TabBarButton(
                     imageName: "map",
                     title: "Map",
@@ -35,9 +35,9 @@ struct CustomTabBar: View {
                     action: { selectedTab = 2 }
                 )
             }
-            .padding(.bottom, 8)
         }
         .frame(height: 90)
+        .frame(maxHeight: .infinity, alignment: .bottom)
     }
 }
 

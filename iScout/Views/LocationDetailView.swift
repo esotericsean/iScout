@@ -52,9 +52,13 @@ struct LocationDetailView: View {
                 
                 // Location details
                 VStack(alignment: .leading, spacing: 8) {
-                    Text(location.title)
-                        .font(.title)
-                        .fontWeight(.bold)
+                    HStack(spacing: 8) {
+                        Text(location.emoji)
+                            .font(.title)
+                        Text(location.title)
+                            .font(.title)
+                            .fontWeight(.bold)
+                    }
                     
                     Text(location.description)
                         .foregroundColor(.secondary)

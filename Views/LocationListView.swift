@@ -72,9 +72,13 @@ struct LocationRow: View {
             .frame(width: 60, height: 60)
             
             VStack(alignment: .leading, spacing: 4) {
-                Text(location.title)
-                    .font(.headline)
-                    .lineLimit(1)
+                HStack(spacing: 4) {
+                    Text(location.emoji)
+                        .font(.headline)
+                    Text(location.title)
+                        .font(.headline)
+                        .lineLimit(1)
+                }
                 Text(location.description)
                     .font(.subheadline)
                     .foregroundColor(.secondary)
@@ -102,4 +106,4 @@ struct LocationListView_Previews: PreviewProvider {
             )
         }
     }
-} 
+}

@@ -18,9 +18,9 @@
 		935C30882D40CCB200ABBF43 /* TagEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935C30872D40CCB200ABBF43 /* TagEditor.swift */; };
 		935C308C2D40DE3400ABBF43 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935C308B2D40DE3400ABBF43 /* SplashView.swift */; };
 		935C308E2D40DE4C00ABBF43 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935C308D2D40DE4C00ABBF43 /* AboutView.swift */; };
-		935C30902D40E21500ABBF43 /* EmojiPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935C308F2D40E21500ABBF43 /* EmojiPicker.swift */; };
 		935C9A742D42C32A00558783 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935C9A732D42C32A00558783 /* AppDelegate.swift */; };
 		935C9A782D42C6F600558783 /* AppearanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935C9A772D42C6F500558783 /* AppearanceManager.swift */; };
+		9373C3032D44AC2B00FCBE89 /* EmojiPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373C3022D44AC2B00FCBE89 /* EmojiPickerView.swift */; };
 		9392E0AA2D40B8810023EB9F /* iScoutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9392E0A92D40B8810023EB9F /* iScoutApp.swift */; };
 		9392E0AC2D40B8810023EB9F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9392E0AB2D40B8810023EB9F /* ContentView.swift */; };
 		9392E0AE2D40B8830023EB9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9392E0AD2D40B8830023EB9F /* Assets.xcassets */; };
@@ -65,9 +65,9 @@
 		935C30872D40CCB200ABBF43 /* TagEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagEditor.swift; sourceTree = "<group>"; };
 		935C308B2D40DE3400ABBF43 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		935C308D2D40DE4C00ABBF43 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
-		935C308F2D40E21500ABBF43 /* EmojiPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPicker.swift; sourceTree = "<group>"; };
 		935C9A732D42C32A00558783 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		935C9A772D42C6F500558783 /* AppearanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceManager.swift; sourceTree = "<group>"; };
+		9373C3022D44AC2B00FCBE89 /* EmojiPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerView.swift; sourceTree = "<group>"; };
 		9392E0A62D40B8810023EB9F /* iScout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iScout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9392E0A92D40B8810023EB9F /* iScoutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iScoutApp.swift; sourceTree = "<group>"; };
 		9392E0AB2D40B8810023EB9F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -139,13 +139,13 @@
 				935C30872D40CCB200ABBF43 /* TagEditor.swift */,
 				935C308B2D40DE3400ABBF43 /* SplashView.swift */,
 				935C308D2D40DE4C00ABBF43 /* AboutView.swift */,
-				935C308F2D40E21500ABBF43 /* EmojiPicker.swift */,
 				939C9D942D42F2C900A1808F /* MapTabView.swift */,
 				939C9D962D42F47E00A1808F /* SearchBar.swift */,
 				939C9D982D42F63200A1808F /* CustomTabView.swift */,
 				93EA8B692D43FBB000437905 /* ButtonsView.swift */,
 				93DA96652D44073700BA5CF4 /* MapTabBarModifier.swift */,
 				93DA96672D44078200BA5CF4 /* CustomTabBar.swift */,
+				9373C3022D44AC2B00FCBE89 /* EmojiPickerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -353,10 +353,10 @@
 				935C30882D40CCB200ABBF43 /* TagEditor.swift in Sources */,
 				935C307E2D40BEF700ABBF43 /* LocationDetailView.swift in Sources */,
 				93DA96662D44073700BA5CF4 /* MapTabBarModifier.swift in Sources */,
-				935C30902D40E21500ABBF43 /* EmojiPicker.swift in Sources */,
 				935C9A742D42C32A00558783 /* AppDelegate.swift in Sources */,
 				93DA96682D44078200BA5CF4 /* CustomTabBar.swift in Sources */,
 				935C30762D40BEC100ABBF43 /* Location.swift in Sources */,
+				9373C3032D44AC2B00FCBE89 /* EmojiPickerView.swift in Sources */,
 				935C308E2D40DE4C00ABBF43 /* AboutView.swift in Sources */,
 				935C308C2D40DE3400ABBF43 /* SplashView.swift in Sources */,
 				935C9A782D42C6F600558783 /* AppearanceManager.swift in Sources */,
