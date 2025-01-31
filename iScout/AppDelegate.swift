@@ -18,6 +18,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         return true
     }
     
+    // Add this method to support only portrait orientation
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
     private func setupAppearance() {
         DispatchQueue.main.async {
             let tabBarAppearance = UITabBarAppearance()

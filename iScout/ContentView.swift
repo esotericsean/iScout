@@ -9,6 +9,7 @@ struct ContentView: View {
     @State private var centerLocation: Location?
     @AppStorage("hasSeenSplash") private var hasSeenSplash = false
     @State private var showingSplash = true
+    @State private var searchText = ""
     
     var body: some View {
         NavigationView {
@@ -48,6 +49,7 @@ struct ContentView: View {
                                         .frame(height: 160)
                                         .offset(x: -20, y: 0)
                                         .shadow(color: .black.opacity(0.3), radius: 8, y: 4)
+                                        .allowsHitTesting(false)
                                     
                                     Image("iScout_logo")
                                         .resizable()
@@ -55,12 +57,13 @@ struct ContentView: View {
                                         .frame(height: 36)
                                         .padding(.leading, 40)
                                         .padding(.top, 60)
+                                        .allowsHitTesting(false)
                                 }
                                 .frame(height: 120)
                                 .zIndex(2)
                                 
                                 SearchBar(
-                                    searchText: .constant(""),
+                                    searchText: $searchText,
                                     locationStore: locationStore,
                                     region: $locationManager.region
                                 )
@@ -72,7 +75,6 @@ struct ContentView: View {
                                 
                                 Spacer()
                             }
-                            .allowsHitTesting(false)
                         }
                     } else if selectedTab == 1 {
                         // List Tab
